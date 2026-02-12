@@ -5,7 +5,35 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Наклей стелко</title>
-    <script type="module" crossorigin src="/assets/index-DZuOIeTm.js"></script>
+
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script>
+      (async function () {
+        const tg = window.Telegram?.WebApp;
+        if (!tg) return;
+
+        tg.ready();
+
+        // 1. Сначала expand — растягиваем BottomSheet на весь экран Telegram
+        tg.expand();
+
+        // 2. ЗАПРАШИВАЕМ ПОЛНОЭКРАННЫЙ РЕЖИМ (убирает интерфейс Telegram)
+        if (tg.requestFullscreen) {
+          try {
+            const result = await tg.requestFullscreen();
+            console.log("Fullscreen result:", result);
+            // true / false / "ALREADY_FULLSCREEN" / "UNSUPPORTED"
+          } catch (e) {
+            console.error("Fullscreen error:", e);
+          }
+        } else {
+          // Fallback для старых версий
+          document.body.style.height = "100vh";
+          document.documentElement.style.height = "100vh";
+        }
+      })();
+    </script>
+    <script type="module" crossorigin src="/assets/index-zsuSWX9z.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-Ccpcamho.css">
   </head>
   <body>
